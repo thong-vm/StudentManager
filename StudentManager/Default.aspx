@@ -5,7 +5,7 @@
     <div class="jumbotron">
         <h1>Student manager</h1>
         <p class="lead">This is a student list</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">+Add</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/AddStudent.aspx">+Add</a></p>
     </div>
 
 <asp:GridView ID="studentsTable" runat="server" AutoGenerateColumns="False" Width="100%" DataKeyNames="id">

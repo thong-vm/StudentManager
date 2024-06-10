@@ -19,11 +19,11 @@ Partial Class _Default
                 Try
                     connection.Open()
                     Dim reader As SqlDataReader = command.ExecuteReader()
+                    dataTable.Columns.Add("ID", GetType(Integer))
+                    dataTable.Columns.Add("FullName", GetType(String))
                     If reader.HasRows Then
-                        dataTable.Columns.Add("ID", GetType(Integer))
-                        dataTable.Columns.Add("FullName", GetType(String))
                         While reader.Read()
-                            Dim id As Integer = reader.GetInt32(0)
+                            Dim id As Integer = 1
                             Dim fullName As String = reader.GetString(1)
                             dataTable.Rows.Add(id, fullName)
                         End While
