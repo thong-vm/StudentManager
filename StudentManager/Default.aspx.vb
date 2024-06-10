@@ -7,9 +7,9 @@ Partial Class _Default
 
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        GetDataFromDatabase()
+        BindGridView()
     End Sub
-    Private Sub GetDataFromDatabase()
+    Private Sub BindGridView()
 
         Dim connectionString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
         Dim query As String = "SELECT * FROM students"
@@ -33,7 +33,39 @@ Partial Class _Default
                 End Try
             End Using
         End Using
-        gridView1.DataSource = dataTable
-        gridView1.DataBind()
+        studentsTable.DataSource = dataTable
+        studentsTable.DataBind()
+    End Sub
+    Protected Sub studentsTable_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles studentsTable.RowEditing
+        studentsTable.EditIndex = e.NewEditIndex
+        BindGridView()
+    End Sub
+
+    Protected Sub studentsTable_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles studentsTable.RowCancelingEdit
+        studentsTable.EditIndex = -1
+        BindGridView()
+    End Sub
+
+    Protected Sub studentsTable_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles studentsTable.RowUpdating
+        Dim row = studentsTable.Rows(e.RowIndex)
+        Dim id As Integer = Convert.ToInt32(studentsTable.DataKeys(e.RowIndex).Value)
+        Dim newName As String = DirectCast(row.FindControl("txtName"), TextBox).Text
+
+        ' Thực hiện cập nhật dữ liệu trong cơ sở dữ liệu ở đây
+        ' Ví dụ:
+        ' UPDATE Students SET fullName = @NewName WHERE id = @Id
+
+        studentsTable.EditIndex = -1
+        BindGridView()
+    End Sub
+
+    Protected Sub studentsTable_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles studentsTable.RowDeleting
+        Dim id As Integer = Convert.ToInt32(studentsTable.DataKeys(e.RowIndex).Value)
+
+        ' Thực hiện xóa dữ liệu trong cơ sở dữ liệu ở đây
+        ' Ví dụ:
+        ' DELETE FROM Students WHERE id = @Id
+
+        BindGridView()
     End Sub
 End Class

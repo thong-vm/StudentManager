@@ -1,17 +1,11 @@
-﻿Imports System.Collections.Generic
-Imports System.Linq
-Imports System.Web
-Imports System.Web.Optimization
-Imports System.Web.UI
-
-Public Module BundleConfig
+﻿Public Module BundleConfig
     ' For more information on Bundling, visit https://go.microsoft.com/fwlink/?LinkID=303951
     Public Sub RegisterBundles(bundles As BundleCollection)
         bundles.Add(New ScriptBundle("~/bundles/WebFormsJs").Include(
             "~/Scripts/WebForms/WebForms.js",
             "~/Scripts/WebForms/WebUIValidation.js",
             "~/Scripts/WebForms/MenuStandards.js",
-            "~/Scripts/WebForms/Focus.js", "~/Scripts/WebForms/GridView.js", 
+            "~/Scripts/WebForms/Focus.js", "~/Scripts/WebForms/GridView.js",
             "~/Scripts/WebForms/DetailsView.js",
             "~/Scripts/WebForms/TreeView.js",
             "~/Scripts/WebForms/WebParts.js"))

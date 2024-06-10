@@ -1,7 +1,6 @@
-﻿Imports Owin
+﻿Imports Microsoft.Owin
 Imports Microsoft.Owin.Security.Cookies
-Imports Microsoft.Owin.Security.Google
-Imports Microsoft.Owin
+Imports Owin
 
 Partial Public Class Startup
     ' For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301883

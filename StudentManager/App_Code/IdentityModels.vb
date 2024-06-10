@@ -1,6 +1,5 @@
 ﻿Imports Microsoft.AspNet.Identity.EntityFramework
 Imports Microsoft.Owin.Security
-Imports Microsoft.AspNet.Identity
 
 ' You can add profile data for the user by adding more properties to your User class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
 Public Class ApplicationUser
