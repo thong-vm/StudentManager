@@ -4,17 +4,19 @@ Imports System.Data.SqlClient
 Partial Class AddStudent
     Inherits System.Web.UI.Page
     Protected Sub btnAddStudent_Click(sender As Object, e As EventArgs)
-        Dim name As String = txtName.Text
+        Dim fullName As String = txtName.Text
         Dim email As String = txtEmail.Text
-        Dim phoneNumber As String = txtPhoneNumber.Text
+        Dim avatar As String = txtAvatar.Text
 
         Dim connectionString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
-        Dim query As String = "INSERT INTO students (fullName) VALUES (@Name)"
+        Dim query As String = "INSERT INTO Students (fullName, email, avatar) VALUES (@fullName, @email, @avatar)"
 
         Using connection As New SqlConnection(connectionString)
             Try
                 Using command As New SqlCommand(query, connection)
-                    command.Parameters.AddWithValue("@Name", name)
+                    command.Parameters.AddWithValue("@fullName", fullName)
+                    command.Parameters.AddWithValue("@email", email)
+                    command.Parameters.AddWithValue("@avatar", avatar)
                     connection.Open()
                     command.ExecuteNonQuery()
                 End Using
