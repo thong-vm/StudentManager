@@ -4,8 +4,6 @@ Imports System.Data.SqlClient
 
 Partial Class _Default
     Inherits Page
-
-
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         BindGridView()
     End Sub
@@ -41,45 +39,23 @@ Partial Class _Default
         studentsTable.DataBind()
     End Sub
     Protected Sub studentsTable_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles studentsTable.RowEditing
-        studentsTable.EditIndex = e.NewEditIndex
-        BindGridView()
-    End Sub
-
-    Protected Sub studentsTable_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles studentsTable.RowCancelingEdit
-        studentsTable.EditIndex = -1
-        BindGridView()
-    End Sub
-
-    Protected Sub studentsTable_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles studentsTable.RowUpdating
-        Dim row = studentsTable.Rows(e.RowIndex)
-        Dim id As Integer = Convert.ToInt32(studentsTable.DataKeys(e.RowIndex).Value)
-        Dim fullName As String = DirectCast(row.FindControl("txtFullName"), TextBox).Text
-        Dim connectionString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
-        Dim query As String = "UPDATE Students SET fullName = @fullName WHERE id = @id"
-
-        Using connection As New SqlConnection(connectionString)
-            Try
-                Using command As New SqlCommand(query, connection)
-                    command.Parameters.AddWithValue("@id", id)
-                    command.Parameters.AddWithValue("@fullName", fullName)
-                    connection.Open()
-                    command.ExecuteNonQuery()
-                End Using
-            Catch ex As Exception
-            End Try
-        End Using
-
-        studentsTable.EditIndex = -1
-        BindGridView()
+        Dim studentID As String = studentsTable.DataKeys(e.NewEditIndex).Value.ToString()
+        Dim editUrl As String = String.Format("EditStudent.aspx?studentID={0}", studentID)
+        Response.Redirect(editUrl)
     End Sub
 
     Protected Sub studentsTable_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles studentsTable.RowDeleting
-        Dim id As Integer = Convert.ToInt32(studentsTable.DataKeys(e.RowIndex).Value)
-
-        ' Thực hiện xóa dữ liệu trong cơ sở dữ liệu ở đây
-        ' Ví dụ:
-        ' DELETE FROM Students WHERE id = @Id
-
-        BindGridView()
+        Try
+            Dim id As Integer = Convert.ToInt32(studentsTable.DataKeys(e.RowIndex).Value)
+            Dim connectionString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
+            Using connection As New SqlConnection(connectionString)
+                Dim command As New SqlCommand("DELETE FROM Students WHERE id = @id", connection)
+                command.Parameters.AddWithValue("@id", id)
+                connection.Open()
+                command.ExecuteNonQuery()
+            End Using
+            BindGridView()
+        Catch ex As Exception
+        End Try
     End Sub
 End Class
