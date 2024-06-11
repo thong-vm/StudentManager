@@ -12,7 +12,11 @@
         <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" />
         <asp:BoundField DataField="fullName" HeaderText="Full Name" />
         <asp:BoundField DataField="email" HeaderText="Email" />
-        <asp:BoundField DataField="avatar" HeaderText="Avatar" />
+                     <asp:TemplateField HeaderText="Avatar">
+                    <ItemTemplate>
+                        <img src='<%# ResolveUrl(Eval("avatar").ToString()) %>' alt="Avatar" style="width: 50px; height: 50px;" />
+                    </ItemTemplate>
+                </asp:TemplateField>
         <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
     </Columns>
 </asp:GridView>

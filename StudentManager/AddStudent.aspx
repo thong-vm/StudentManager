@@ -20,11 +20,11 @@
         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
     </div>
     <div class="form-group">
-        <label for="txtAvatar">Avatar:</label>
-        <asp:TextBox ID="txtAvatar" runat="server" CssClass="form-control"></asp:TextBox>
+        <label for="fileAvatar">Avatar:</label>
+        <asp:FileUpload ID="fileAvatar" runat="server" CssClass="form-control"></asp:FileUpload>
     </div>
     <div>
-        <asp:Button ID="btnAddStudent" runat="server" Text="Add Student" CssClass="btn btn-primary" OnClick="btnAddStudent_Click" />
+        <asp:Button ID="btnAddStudent" runat="server" Text="Add Student" CssClass="btn btn-primary btn-lg" OnClick="btnAddStudent_Click" />
     </div>
 </form>
 

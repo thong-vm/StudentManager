@@ -7,7 +7,17 @@
     <title></title>
  
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-
+      <script type="text/javascript">
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    imgAvatar.src = URL.createObjectURL(input.files[0])
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -23,11 +33,13 @@
         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control"></asp:TextBox>
     </div>
     <div class="form-group">
-        <label for="txtAvatar">Avatar:</label>
-        <asp:TextBox ID="txtAvatar" runat="server" CssClass="form-control"></asp:TextBox>
+        <label for="imgAvatar">Avatar:</label>
+        <asp:Image ID="imgAvatar"   runat="server" style="width: 50px; height: 50px;"/>
+        <label for="fileAvatar">Avatar:</label>
+        <asp:FileUpload ID="fileAvatar" runat="server" CssClass="form-control" OnChange="previewImage(this)"></asp:FileUpload>
     </div>
     <div>
-        <asp:Button ID="btnEditStudent" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnEditStudent_Click" />
+        <asp:Button ID="btnEditStudent" runat="server" Text="Save" CssClass="btn btn-primary btn-lg" OnClick="btnEditStudent_Click" />
     </div>
 </form>
     </body>
