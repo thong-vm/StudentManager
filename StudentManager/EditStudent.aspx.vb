@@ -39,32 +39,15 @@ Partial Class EditStudent
 
         If Not String.IsNullOrEmpty(id) Then
             UpdateStudentData(id)
-
         Else
             Response.Redirect("Default.aspx")
         End If
     End Sub
     Private Sub UpdateStudentData(id As String)
-
-
-        Dim avatarPath As String = imgAvatar.ImageUrl.ToString()
-
-        If fileAvatar.HasFile Then
-            Try
-                Dim fileName As String = Path.GetFileName(fileAvatar.PostedFile.FileName)
-
-                Dim fileExtension As String = Path.GetExtension(fileName)
-                Dim newFileName As String = Guid.NewGuid().ToString() & fileExtension
-                avatarPath = "/Uploads/Avatars/" & newFileName
-
-                Dim uploadPath As String = Server.MapPath("~/Uploads/Avatars/")
-                If Not Directory.Exists(uploadPath) Then
-                    Directory.CreateDirectory(uploadPath)
-                End If
-
-                fileAvatar.PostedFile.SaveAs(Path.Combine(uploadPath, newFileName))
-            Catch ex As Exception
-            End Try
+        Dim uploadController = New ImageUploading()
+        Dim avatarPath As String = uploadController.GetUrl(fileAvatar)
+        If avatarPath = "" Then
+            avatarPath = imgAvatar.ImageUrl.ToString()
         End If
 
         Dim connectionString As String = ConfigurationManager.ConnectionStrings("DefaultConnection").ConnectionString
